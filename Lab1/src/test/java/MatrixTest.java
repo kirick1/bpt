@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 import java.security.InvalidParameterException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MatrixTest {
     private final Matrix fourByFour = new Matrix(new double[][]{
