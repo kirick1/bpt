@@ -161,6 +161,8 @@ class MatrixTest {
                 {-24.12, -12.95, -61.53},
                 {-37.46, -24.29, -49.19}
         });
-        assertTrue(result.equals(expected));
+        assertAll("Equals",
+                () -> assertTrue(result.equals(expected))
+        );
     }
 }

@@ -48,7 +48,7 @@ public class Matrix {
                     final double deviation = 0.01;
                     for (int i = 0; i < matrixSize; i++)
                         for (int j = 0; j < matrixSize; j++)
-                            if ((this.matrix[i][j] - mt.getMatrix()[i][j]) > deviation) return false;
+                            if (Math.abs(this.matrix[i][j] - mt.getMatrix()[i][j]) > deviation) return false;
                     return true;
                 }
             }
