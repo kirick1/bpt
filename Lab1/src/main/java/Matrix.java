@@ -13,11 +13,11 @@ public class Matrix {
         for (double[] row : array) if (row.length != rowsNumber) return false;
         return true;
     }
-    public double[][] getMatrix() {
+    private double[][] getMatrix() {
         if (!isValid(this.matrix)) throw new IllegalArgumentException("Current matrix is not valid");
         else return this.matrix;
     }
-    public int getSize() {
+    private int getSize() {
         if (!isValid(this.matrix)) throw new IllegalArgumentException("Current matrix is not valid");
         else return this.matrix.length;
     }

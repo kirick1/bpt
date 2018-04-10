@@ -1,20 +1,20 @@
 public class Program {
     public static void main (String argv[]) {
-        final double scalarValueToMultiply = 12.34;
+        final double scalarValueToMultiply = 19.73;
         Matrix matrixA = new Matrix(new double[][] {
-                { 3, 2, 1 },
-                { 3, 1, 2 },
-                { 1, 3, 4 }
+                {9, 7, 5},
+                {8, 3, 0},
+                {14, 1, 10}
         });
         Matrix matrixB = new Matrix(new double[][] {
-                { 3, 2, 3 },
-                { 4, 1, 2 },
-                { 1, 5, 4 }
+                {3, 15, 22},
+                {6, 1, 2},
+                {19, 5, 8}
         });
         Matrix expectedResultMatrix = new Matrix(new double[][] {
-                { -36.91, -49.08, -12.50 },
-                { -24.12, -12.95, -61.53 },
-                { -37.46, -24.29, -49.19 }
+                {-59.26, -118.24, -374.84},
+                {-295.78, -19.77, -98.74},
+                {-433.99, -39.65, -157.78}
         });
         try {
             System.out.println("Initial matrixA:");
