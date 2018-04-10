@@ -6,7 +6,6 @@ public class Matrix {
         if (!isValid(array)) throw new InvalidParameterException("Passed array is not valid matrix");
         else this.matrix = array;
     }
-    Matrix() {}
     private boolean isValid(double[][] array) {
         if (array == null) return false;
         int rowsNumber = array.length;
@@ -14,11 +13,11 @@ public class Matrix {
         for (double[] row : array) if (row.length != rowsNumber) return false;
         return true;
     }
-    private double[][] getMatrix() {
+    public double[][] getMatrix() {
         if (!isValid(this.matrix)) throw new IllegalArgumentException("Current matrix is not valid");
         else return this.matrix;
     }
-    private int getSize() {
+    public int getSize() {
         if (!isValid(this.matrix)) throw new IllegalArgumentException("Current matrix is not valid");
         else return this.matrix.length;
     }
@@ -124,24 +123,24 @@ public class Matrix {
             }
         }
     }
-    public Matrix inverse() {
+    public Matrix invert() {
         if (!isValid(this.matrix)) throw new IllegalArgumentException("Current matrix is not valid");
         else {
             int matrixSize = this.getSize();
-            double[][] inversed = new double[matrixSize][matrixSize];
+            double[][] inverted = new double[matrixSize][matrixSize];
             for (int i = 0; i < matrixSize; i++)
                 for (int j = 0; j < matrixSize; j++)
-                    inversed[i][j] = Math.pow(-1, i + j) * minor(i, j).determinant();
+                    inverted[i][j] = Math.pow(-1, i + j) * minor(i, j).determinant();
             double determinant = this.determinant();
             if (determinant == 0) throw new ArithmeticException("Division by zero: determinant of current matrix is 0");
             else {
                 for (int i = 0; i < matrixSize; i++)
                     for (int j = 0; j <= i; j++) {
-                        double tmp = inversed[i][j];
-                        inversed[i][j] = inversed[j][i] / determinant;
-                        inversed[j][i] = tmp / determinant;
+                        double tmp = inverted[i][j];
+                        inverted[i][j] = inverted[j][i] / determinant;
+                        inverted[j][i] = tmp / determinant;
                     }
-                return new Matrix(inversed);
+                return new Matrix(inverted);
             }
         }
     }
