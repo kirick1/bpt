@@ -11,7 +11,7 @@ class FSMTest {
     @ParameterizedTest
     @ValueSource(strings = {"1112E11E1", "111E11E2"})
     @MethodSource("dataProviderIsMatchString")
-    @CsvFileSource(resources = "/isMatchStrings.csv")
+    @CsvFileSource(resources = "isMatchStrings.csv")
     @ArgumentsSource(MyArgumentsProvider.class)
     void isMatchStrings(String s) {
         FSMSwitch fsmSwitch = new FSMSwitch();
@@ -25,7 +25,7 @@ class FSMTest {
     @ParameterizedTest
     @ValueSource(strings = {"1E11", "111E11EEE2"})
     @MethodSource("dataProviderNotMatchString")
-    @CsvFileSource(resources = "/notMatchStrings.csv")
+    @CsvFileSource(resources = "notMatchStrings.csv")
     void notMatchStrings(String s) {
         FSMSwitch fsmSwitch = new FSMSwitch();
         assertFalse(fsmSwitch.fsm(s));
@@ -41,7 +41,7 @@ class FSMTest {
     }
 
     private static Stream<Arguments> dataProviderNotMatchString() {
-        return Stream.of(Arguments.of("1E11"),
+        return Stream.of(Arguments.of("5EE5"),
                 Arguments.of("111E11EEE2"));
     }
 

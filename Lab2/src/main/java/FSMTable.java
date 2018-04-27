@@ -15,15 +15,14 @@ public class FSMTable {
     }
     private ArrayList<Transition> transitions = new ArrayList<>();
     FSMTable() {
-        // Q0
         this.transitions.add(new Transition(States.Q0, Events.DIGIT, States.Q1));
         this.transitions.add(new Transition(States.Q0, Events.LETTER, States.ERROR));
         this.transitions.add(new Transition(States.Q0, Events.LAST, States.ERROR));
-        // Q1
+
         this.transitions.add(new Transition(States.Q1, Events.DIGIT, States.Q1));
         this.transitions.add(new Transition(States.Q1, Events.LETTER, States.Q2));
         this.transitions.add(new Transition(States.Q1, Events.LAST, States.ERROR));
-        // Q2
+
         this.transitions.add(new Transition(States.Q2, Events.DIGIT, States.Q1));
         this.transitions.add(new Transition(States.Q2, Events.LETTER, States.ERROR));
         this.transitions.add(new Transition(States.Q2, Events.LAST, States.Q3));

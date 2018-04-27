@@ -1,26 +1,26 @@
 public class FSMSwitch {
-    public enum States { Q0, Q1, Q2, ERROR }
     FSMSwitch() {}
     boolean fsm(String string) {
-        States state = States.Q0;
+        FSMTable.States state = FSMTable.States.Q0;
         int stringLength = string.length();
-        for(int i = 0; i < stringLength && state != States.ERROR; i++) {
+        for(int i = 0; i < stringLength && state != FSMTable.States.ERROR; i++) {
             char c = string.charAt(i);
             switch(state) {
                 case Q0:
-                    if(Character.isDigit(c)) state = States.Q1;
-                    else state = States.ERROR;
+                    if(Character.isDigit(c)) state = FSMTable.States.Q1;
+                    else state = FSMTable.States.ERROR;
                     break;
                 case Q1:
-                    if(Character.isDigit(c)) state = States.Q1;
-                    else if(c == 'E') state = States.Q2;
-                    else state = States.ERROR;
+                    if(Character.isDigit(c)) state = FSMTable.States.Q1;
+                    else if(c == 'E') state = FSMTable.States.Q2;
+                    else state = FSMTable.States.ERROR;
                     break;
                 case Q2:
                     if(Character.isDigit(c)) {
                         if (i == stringLength - 1) return true;
-                        else state = States.Q1;
-                    } else state = States.ERROR;
+                        else state = FSMTable.States.Q1;
+                    } else state = FSMTable.States.ERROR;
+                    break;
             }
         }
         return false;

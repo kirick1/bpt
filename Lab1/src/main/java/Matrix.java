@@ -1,4 +1,6 @@
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Matrix {
     private double[][] matrix;
@@ -25,8 +27,8 @@ public class Matrix {
         int matrixSize = this.getSize();
         for (int i = 0; i < matrixSize; i++) {
             matrixString.append("[");
-            for (int j = 0; j < matrixSize; j++) matrixString.append(String.format("%.2f ", this.matrix[i][j]));
-            matrixString.append("]\n");
+            for (int j = 0; j < matrixSize; j++) matrixString.append((j != matrixSize - 1) ? String.format("%.2f, ", this.matrix[i][j]) : String.format("%.2f", this.matrix[i][j]));
+            matrixString.append((i < matrixSize - 1) ? "]\n" : "]");
         }
         return matrixString.toString();
     }
@@ -49,7 +51,7 @@ public class Matrix {
             }
         } else return false;
     }
-    public Matrix multiply(Matrix multiplier) {
+    Matrix multiply(Matrix multiplier) {
         int matrixSize = this.getSize(), multiplierMatrixSize = multiplier.getSize();
         if (matrixSize != multiplierMatrixSize) throw new InvalidParameterException("Size of current matrix is not equal with size of multiplier matrix");
         else {
@@ -61,7 +63,7 @@ public class Matrix {
             return new Matrix(resultMatrix);
         }
     }
-    public Matrix multiply(double value) {
+    Matrix multiply(double value) {
         int matrixSize = this.getSize();
         double[][] resultMatrix = new double[matrixSize][matrixSize];
         for (int i = 0; i < matrixSize; i++)
@@ -69,7 +71,7 @@ public class Matrix {
                 resultMatrix[i][j] = this.matrix[i][j] * value;
         return new Matrix(resultMatrix);
     }
-    public Matrix subtract(Matrix subtrahend) {
+    Matrix subtract(Matrix subtrahend) {
         int matrixSize = this.getSize(), subtrahendMatrixSize = subtrahend.getSize();
         if (matrixSize != subtrahendMatrixSize) throw new InvalidParameterException("Current matrix and subtrahend matrix must have equal size");
         else {
@@ -91,7 +93,7 @@ public class Matrix {
                 }
         return new Matrix(minorMatrix);
     }
-    public double determinant() {
+    double determinant() {
         int matrixSize = this.getSize();
         if (matrixSize == 0) throw new IllegalArgumentException("Current matrix is empty");
         else if (matrixSize == 1) return this.matrix[0][0];
@@ -102,7 +104,7 @@ public class Matrix {
             return determinantValue;
         }
     }
-    public Matrix invert() {
+    Matrix invert() {
         int matrixSize = this.getSize();
         double[][] inverted = new double[matrixSize][matrixSize];
         for (int i = 0; i < matrixSize; i++)
@@ -120,7 +122,7 @@ public class Matrix {
             return new Matrix(inverted);
         }
     }
-    public Matrix transpose() {
+    Matrix transpose() {
         int matrixSize = this.getSize();
         double[][] transposed = this.matrix;
         for (int i = 0; i < matrixSize; i++)
@@ -130,5 +132,31 @@ public class Matrix {
                 transposed[j][i] = tmp;
             }
         return new Matrix(transposed);
+    }
+    static Matrix convert(String stringMatrix) {
+        List<Double> list = new ArrayList<>();
+        stringMatrix = stringMatrix.substring(1, stringMatrix.length() - 1);
+        String[] starts = stringMatrix.split("\\[");
+        int startsNumber = starts.length - 1;
+        for(int i = 1; i <= startsNumber; i++) {
+            if(starts[i].equals("")) continue;
+            String[] withoutBracers = starts[i].split("]");
+            String[] numbers = withoutBracers[0].split(",\\s?");
+            for(String number : numbers) list.add(Double.parseDouble(number));
+        }
+        int listSize = list.size();
+        int arraySize = (listSize / startsNumber);
+        double[][] array = new double[startsNumber][arraySize];
+        for(int i = 0; i < listSize; i++) array[i / arraySize][i % arraySize] = list.get(i);
+        return new Matrix(array);
+    }
+    public static void main (String argv[]) {
+        try {
+            String matrixString = "[[1,1,1],[1,1,1],[1,1,1]]";
+            Matrix convertedMatrix = Matrix.convert(matrixString);
+            System.out.println(convertedMatrix);
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
     }
 }
